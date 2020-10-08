@@ -1,0 +1,253 @@
+/*
+Just add this code into the top of your CSS page for every project you work on so that your page doesn't default to the old method of box-sizing.
+*/
+/* Set ALL HTML elements with border-box sizing */
+* {
+  box-sizing: border-box;
+}
+
+/* --- General --- */ 
+
+body {
+  min-width: 350px;
+  margin: 0;
+}
+
+/* header for non-background img
+header {
+  background-color: gray;
+}
+*/
+
+/*for header background image*/
+/*
+header {
+  background-image: url("images/newspaper2.jpg");
+}
+*/
+
+
+header {
+  background-color: gray;
+  margin-bottom: 40px;
+}
+
+header h1 {
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding-top: 20px;
+}
+
+header nav {
+  display: flex;
+  justify-content: center;
+}
+
+header nav ul {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+}
+
+header nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 20px 0 0;
+}
+
+header nav ul li:last-child a {
+  margin-right: 0;
+}
+
+main {
+  padding-left: 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 2px solid #bc4749;;
+}
+
+.item {
+  display: flex;
+  flex: 1;
+  margin: 10px;
+  height: 100%;
+}
+
+img {
+  width: 100%;
+  padding: 20px;
+}
+
+ul {
+  list-style: none;
+}
+
+#map {
+  width: 100%;
+  height: 400px;
+  background-color: grey;
+}
+
+
+footer {
+  background-color: gray;
+  color: #fff;
+  margin: 200px 0 0 0;
+  padding: 20px 0 20px 20px;
+}
+
+#js-form{
+  display: flex;
+  flex-direction: column;
+  /*justify-content: left;*/
+  align-items: left;
+}
+
+.form-style {
+  padding: .2em .5em;
+  margin: .25em 0;
+  border-radius: 5px;
+  /*border: none;*/
+  height: 40px;
+}
+
+#submit-button {
+  border:3px solid #bc4749;;
+  background-color: #bc4749;
+  color: #f2e8cf;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 3px;
+  height: 40px;
+}
+
+ .results-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  padding: 0 100px;
+  margin: 20px;
+}
+
+.error-message {
+  color: #5A2021;
+}
+
+.hidden {
+  display: none;
+}
+
+
+/* unvisited link 
+a:link {
+  color: #ff8a5b;
+}
+*/
+
+/* visited link 
+a:visited {
+  color: #00b2ca;
+}
+*/
+
+/* mouse over link 
+a:hover {
+  color: #bc4749;
+}
+*/
+
+/* selected link 
+a:active {
+  color: #d84727;
+}
+*/
+
+/*even there aren't divs in the header or footer, good practice to keep?*/
+/*
+header div, 
+main div, 
+footer div {
+  width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+
+header:after, 
+nav:after {
+  content: " ";
+  display: table;
+  clear: both;
+}  
+
+*/
+
+p {
+ font-size: 14px;   
+}
+
+/*
+h1 {
+  color: white;
+  padding: 60px 0 20px 20px;
+  margin: 0;
+  float: left;
+}
+*/
+
+
+/* --- Groups & Items (for flexbox) --- */
+
+/* --- Media Queries --- */
+  /* --- media types: all, print, screen, or speech --- */
+  /* --- common media features: width, height, orientation --- */
+  /*@media <media type> (<media features>) {
+    <CSS Rules>
+    }*/
+
+@media all and (min-width: 600px) {
+  header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+  }
+
+  header h1 {
+    margin: 14px 0;
+    padding-top: 0;
+  }
+  
+  header nav {
+    margin-top: 8px;
+  }
+
+  header nav ul li a:hover {
+    color: #bdbdbd;
+  }
+
+  .group {
+    flex-direction: row;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
