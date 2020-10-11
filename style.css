@@ -1,7 +1,3 @@
-/*
-Just add this code into the top of your CSS page for every project you work on so that your page doesn't default to the old method of box-sizing.
-*/
-/* Set ALL HTML elements with border-box sizing */
 * {
   box-sizing: border-box;
 }
@@ -13,20 +9,6 @@ body {
   margin: 0;
 }
 
-/* header for non-background img
-header {
-  background-color: gray;
-}
-*/
-
-/*for header background image*/
-/*
-header {
-  background-image: url("images/newspaper2.jpg");
-}
-*/
-
-
 header {
   background-color: gray;
   margin-bottom: 40px;
@@ -35,7 +17,7 @@ header {
 header h1 {
   color: #fff;
   text-align: center;
-  margin: 0;
+  margin: 15px;
   padding-top: 20px;
 }
 
@@ -69,6 +51,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 100px 0 100px 0;
 }
 
 .group {
@@ -93,6 +76,12 @@ ul {
   list-style: none;
 }
 
+#map-container {
+  padding: 0 100px;
+  margin: 20px;
+  width: 100%;
+}
+
 #map {
   width: 100%;
   height: 400px;
@@ -103,8 +92,12 @@ ul {
 footer {
   background-color: gray;
   color: #fff;
-  margin: 200px 0 0 0;
-  padding: 20px 0 20px 20px;
+  margin: 20px 0 0 0;
+  padding: 20px 0 20px 0;
+}
+
+footer h4 {
+  margin: 10px;
 }
 
 #js-form{
@@ -146,6 +139,38 @@ footer {
 
 .hidden {
   display: none;
+}
+
+
+#spinner:not([hidden]) {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#spinner::after {
+  content: "";
+  width: 80px;
+  height: 80px;
+  border: 2px solid #f3f3f3;
+  border-top: 3px solid #f25a41;
+  border-radius: 100%;
+  will-change: transform;
+  animation: spin 1s infinite linear
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 
