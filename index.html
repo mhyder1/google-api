@@ -11,19 +11,19 @@
 	<body>
 		<header>
 			<h1>Old News</h1>
-			<nav>
+			<!--nav for future build out>
 				<ul id="menu">
 					<li><a href="#">Home</a></li>
 					<li><a href="#">About</a></li>
 					<li><a href="#">Contact</a></li>
 				</ul>
-			</nav>
+			</nav -->
 		</header>
    
 	    <main>
 			<div class="container">
 				
-				<h2>Discover historic newspapers</h2>
+				<h2>Discover Historic Newspapers</h2>
 
 				<form id="js-form">
 					<label for="js-search-term">Enter search term:</label>
@@ -35,19 +35,21 @@
 
 				<p id="js-error-message" class="error-message"></p>
 
-				<div class="results-container"></div>
+				<div id="map-container" class="hidden">
+					<h3>Newspaper Locations:</h3>
+					<div id="map"></div>
+				</div>
 
-			</div>
+				<div class="results-container" class="hidden"></div>
 
-        	<div id="map-container" class="hidden">
-				<h3>Locations:</h3>
-				<div id="map"></div>
+				<div hidden id="spinner"></div>
+
 			</div>
     
 	    </main>
 
 	    <footer>
-
+			<h4>&#169; Rae Schneider, 2020</h4>
 		</footer>
 
 		<script defer

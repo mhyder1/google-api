@@ -3,9 +3,11 @@
 const searchURL = 'https://www.loc.gov/collections/chronicling-america/';
 const mapURL = 'https://maps.googleapis.com/maps/api/geocode/json';
 const apiKey = 'AIzaSyD4JIY6dhHh54lJthiwY2_QICpEXHSV7uc';
-const locations = [];
-const markerInfo = [];
+let map;
+let locations = [];
+let markers = [];
 const iconImage = 'https://maps.google.com/mapfiles/kml/shapes/library_maps.png';
+const spinner = document.getElementById("spinner");
 
 function formatQueryParams(params) {
   const queryItems = Object.keys(params)
@@ -16,9 +18,9 @@ function formatQueryParams(params) {
 ///this function takes in the response getNews(), loops through the response
 ///and gets the title, description, date, and url to page from the response. 
 ///Then it creates a variable 'Newspapers' to display the results
-function displayResults(responseJson, response) {
+function displayResults(responseJson) {
   console.log(responseJson);
-  $('.results-list').empty();
+  $('.results-container').empty();
   for (let i = 0; i < responseJson.results.length; i++){
     let title = responseJson.results[i].partof_title;
     let description = responseJson.results[i].description;
@@ -47,17 +49,17 @@ function displayResults(responseJson, response) {
 };
 
 
-function geocode(responseJson, response){
-  console.log("geocode function ", responseJson)
-  for(let i = 0; i < responseJson.results.length; i++) {
-    markerInfo.push({
+function geocode(location){
+  console.log("geocode function ", location)
+  for(let i = 0; i < location.results.length; i++) {
+    markers.push({
       coords: {
-        lat: responseJson.results[0].geometry.location.lat,
-        lng: responseJson.results[0].geometry.location.lng
+        lat: location.results[0].geometry.location.lat,
+        lng: location.results[0].geometry.location.lng
       },
-      content: `<p>${responseJson.results[0].formatted_address}</p>`
+      content: `<p>${location.results[0].formatted_address}</p>`
     });
-    console.log("markerInfo ", markerInfo)
+    console.log("markers ", markers)
     initMap();
   }
 };
@@ -73,7 +75,7 @@ function getLocations(responseJson, response){
     let location = city + ' ' + state
     console.log("getLocations output ", location)
     locations.push(location)
-    console.log("logactions push output ", locations)
+    console.log("locations push output ", locations)
   }
   for (let i = 0; i < locations.length; i++) {
     let loc = locations[i]
@@ -113,6 +115,7 @@ function getNews(searchTerm, maxResults=10) {
   const queryString = formatQueryParams(params)
   const url = searchURL + '?' + queryString + '&fo=json';
   console.log("newspaper search ", url);
+  spinner.removeAttribute('hidden');
   fetch(url)
   .then(response => {
     if (response.ok) {
@@ -123,6 +126,7 @@ function getNews(searchTerm, maxResults=10) {
   .then(responseJson => {
     displayResults(responseJson)
     getLocations(responseJson)
+    spinner.setAttribute('hidden', '');
   }) 
   .catch(err => {
     $('#js-error-message').text(`Something went wrong: ${err.message}`);
@@ -130,36 +134,63 @@ function getNews(searchTerm, maxResults=10) {
 };
 
 function initMap(){
-  var options = {
-    zoom: 4,
-    center: {
-      lat: 39, 
-      lng: -95
-    }
+  var options = {zoom: 4, center: {lat: 39, lng: -95}}
+  map = new google.maps.Map(document.getElementById('map'), options);
+  for (let i = 0; i < markers.length; i++){
+    addMarker(markers[i])
   }
-  var map = new google.maps.Map(document.getElementById('map'), options);
-  for (let i = 0; i < markerInfo.length; i++){
-    addMarker(markerInfo[i])
-  }
-  console.log("markerInfo in initMap ", markerInfo);
+  console.log("markers in initMap ", markers);
 
   function addMarker(property){
     let marker = new google.maps.Marker({
       position: property.coords,
       map: map
     })
-  
     if(property.content){
       let infoWindow = new google.maps.InfoWindow({
       content: property.content
       });
-
       marker.addListener('click', function(){
         infoWindow.open(map, marker)
       })
     }
   }
 };
+
+function setMap(){
+  console.log(`setMap run`)
+  deleteMarkers();
+}
+
+
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+  setMapOnAll(null);
+}
+
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+}
+
+/*
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+  for (let i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+  setMapOnAll(null);
+}
+*/
+
+/*function clearMarkers(){
+  for (let i = 0; i < markers.length; i++) {
+    markers[i] = null
+  }
+}*/
 
 ////this function watches for the form submit event and creates variables out of the seacrch imputs///
 function watchForm() {
@@ -168,7 +199,9 @@ function watchForm() {
     const searchTerm = $('#js-search-term').val().split(",");
     const maxResults = $('#js-max-results').val();
     getNews(searchTerm, maxResults);
-  })
+    setMap(null);
+  });
 };
+
   
 $(watchForm);
