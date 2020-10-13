@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 'use strict';
 
 const searchURL = 'https://www.loc.gov/collections/chronicling-america/';
