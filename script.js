@@ -140,16 +140,22 @@ function initMap() {
     zoom: 4,
     center: {lat: 39, lng: -95}
   };
+
+  //REMOVE MARKER FIXES
   var map = new google.maps.Map(document.getElementById('map'), options);
   for (let i = 0; i < markers.length; i++){
     addMarker(markers[i])
   }
   
+  //REMOVE MARKER FIXES
   function addMarker(property) {
     let marker = new google.maps.Marker({
       position: property.coords,
-      map: map
+      // map: map
+      title: 'Hello world'
     });
+    markersArray.push(marker)
+    marker.setMap(map)
   };
 };
 
@@ -171,11 +177,14 @@ function showOverlays() {
   }
 }
 
+//REMOVE MARKER FIXES
 // Deletes all markers in the array by removing references to them
 function deleteOverlays() {
-  if (markers) {
-    for (i in markers) {
-      markers[i].setMap(null);
+  console.log('deleteOverlays')
+  if (markersArray.length) {
+    for (let i in markersArray) {
+      // console.log(markers[i], '##################################')
+      markersArray[i].setMap(null);
     }
     markers.length = 0;
   }
@@ -212,6 +221,10 @@ function initMap(){
 function watchForm() {
   $('form').submit(event => {
     event.preventDefault();
+    //REMOVE MARKER FIXES
+    markers.length = 0
+    locations.length = 0
+    console.warn(markers, "=======================")
     const searchTerm = $('#js-search-term').val().split(",");
     const maxResults = $('#js-max-results').val();
     getNews(searchTerm, maxResults);
